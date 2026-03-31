@@ -21,6 +21,8 @@ This project is an advanced evolution of the **RELEVAGAN** architecture, optimiz
 * **Adversarial Training:** Integrates crafted perturbations into the training cycle, making the classifier immune to evasion attempts.
 
 ---
+<img width="1024" height="1536" alt="capture5 layers" src="https://github.com/user-attachments/assets/6f1dc3a6-91ab-4cb7-803f-cd0e61775bc3" />
+
 
 ## 🚀 Key Features
 * **Interpretability (XAI):** Integrated **SHAP & LIME** to provide transparency in threat classification.

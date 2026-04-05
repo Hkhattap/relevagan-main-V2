@@ -1,4 +1,4 @@
-## 📁 4️⃣ classifiers.py (XGBoost + ROC)
+# 4️⃣ classifiers.py (XGBoost + ROC)
 from xgboost import XGBClassifier
 from sklearn.metrics import classification_report, roc_auc_score, confusion_matrix, roc_curve
 import matplotlib.pyplot as plt
@@ -6,13 +6,12 @@ import seaborn as sns
 
 def train_xgb(X_train, y_train):
     """
-    تدريب كلاسيفاير XGBoost. 
-    استخدمنا أوزان تلقائية للتعامل مع عدم توازن البيانات (Imbalance) الشائع في هجمات الشبكات.
-    """
+    to train the classifer(XGBoost). 
+// Use class weights to handle data imbalance in network attacks.    """
     print("[INFO] Training XGBoost Classifier...")
     
-    # نستخدم scale_pos_weight لو البيانات فيها عدد قليل من الهجمات مقارنة بالطبيعي
-    model = XGBClassifier(
+## Balance the model because attacks are fewer than normal samples.
+model = XGBClassifier(
         n_estimators=100,
         max_depth=6,
         learning_rate=0.1,
@@ -25,24 +24,24 @@ def train_xgb(X_train, y_train):
 
 def zero_day_eval(model, X_test, y_test):
     """
-    تقييم الموديل على هجمات الـ Zero-Day (الهجمات التي لم تظهر في التدريب).
-    """
+## Evaluate model performance on Zero-Day attacks (unseen during training).
+"""
     print("\n" + "="*30)
     print("      ZERO-DAY EVALUATION      ")
     print("="*30)
 
-    # 1. التنبؤات
+    # 1. // Model predictions
     preds = model.predict(X_test)
     probs = model.predict_proba(X_test)[:, 1]
 
-    # 2. طباعة التقارير الأساسية
+    # 2. // Print basic reports
     print("\n[Classification Report]:")
     print(classification_report(y_test, preds))
     
     auc_score = roc_auc_score(y_test, probs)
     print(f"AUC Score: {auc_score:.4f}")
 
-    # 3. رسم المصفوفة المحيرة (Confusion Matrix)
+    # 3.  (Confusion Matrix)
     plt.figure(figsize=(8, 6))
     cm = confusion_matrix(y_test, preds)
     sns.heatmap(cm, annot=True, fmt='d', cmap='Blues')
@@ -51,7 +50,7 @@ def zero_day_eval(model, X_test, y_test):
     plt.xlabel('Predicted Label')
     plt.show()
 
-    # 4. رسم منحنى الـ ROC Curve (مهم جداً للرسالة)
+    # 4. // Show ROC Curve plot
     plot_roc_curve(y_test, probs)
 
     return {"auc": auc_score, "report": classification_report(y_test, preds, output_dict=True)}

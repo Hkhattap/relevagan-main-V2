@@ -1,5 +1,5 @@
-## 🔥 2️⃣ env_rl.py (RL Environment)
-import gymnasium as gym # استخدمنا gymnasium بدل gym عشان نخلص من التحذير
+##  2️⃣ env_rl.py (RL Environment)
+import gymnasium as gym                 # Use Gymnasium instead of Gym to avoid deprecation warnings.ر
 from gymnasium import spaces
 import numpy as np
 
